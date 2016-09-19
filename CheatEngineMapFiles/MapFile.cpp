@@ -11,6 +11,8 @@
 
 #include "MapFile.h"
 
+//#define MAP_FILE_UNDECORATE_STRING_LITERALS (1)
+
 DWORD WINAPI Emulate_UnDecorateSymbolName(
 	const TCHAR* DecoratedName,
 	PTSTR UnDecoratedName,
@@ -52,6 +54,7 @@ DWORD WINAPI Probe_UnDecorateSymbolName(
 		(FARPROC)GetProcAddress(hDbghelp, "UnDecorateSymbolName");
 
 	if (UnDecorateSymbolNamePtr) {
+		#ifdef MAP_FILE_UNDECORATE_STRING_LITERALS
 		DWORD decoratedLength = static_cast<DWORD>(_tcslen(DecoratedName));
 		// 10 for "??_C@_", "0" or "1", and at least one digit for the length, check sum and text.
 		if (decoratedLength >= 10 && strncmp(DecoratedName, "??_C@_", 6) == 0)
@@ -210,6 +213,7 @@ DWORD WINAPI Probe_UnDecorateSymbolName(
 
 			return _tcslen(UnDecoratedName);
 		}
+		#endif // MAP_FILE_UNDECORATE_STRING_LITERALS
 
 		return UnDecorateSymbolNamePtr(DecoratedName,
 			UnDecoratedName,

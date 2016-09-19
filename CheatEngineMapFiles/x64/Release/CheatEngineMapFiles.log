@@ -1,0 +1,10 @@
+﻿  DllMain.cpp
+  MapFile.cpp
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(1189,5): warning MSB8012: TargetPath(C:\Users\Andrew\Documents\Visual Studio 2015\Projects\CheatEngineMapFiles\x64\Release\CheatEngineMapFiles.dll) does not match the Linker's OutputFile property value (C:\Users\Andrew\Documents\Visual Studio 2015\Projects\CheatEngineMapFiles\x64\Release\CheatEngineMapFiles-64bit.dll). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(1191,5): warning MSB8012: TargetName(CheatEngineMapFiles) does not match the Linker's OutputFile property value (CheatEngineMapFiles-64bit). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+     Creating library C:\Users\Andrew\Documents\Visual Studio 2015\Projects\CheatEngineMapFiles\x64\Release\CheatEngineMapFiles.lib and object C:\Users\Andrew\Documents\Visual Studio 2015\Projects\CheatEngineMapFiles\x64\Release\CheatEngineMapFiles.exp
+  Generating code
+  All 40 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  CheatEngineMapFiles.vcxproj -> C:\Users\Andrew\Documents\Visual Studio 2015\Projects\CheatEngineMapFiles\x64\Release\CheatEngineMapFiles.dll
+  CheatEngineMapFiles.vcxproj -> C:\Users\Andrew\Documents\Visual Studio 2015\Projects\CheatEngineMapFiles\x64\Release\CheatEngineMapFiles.pdb (Full PDB)

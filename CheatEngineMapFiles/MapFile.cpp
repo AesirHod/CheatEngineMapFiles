@@ -11,7 +11,7 @@
 
 #include "MapFile.h"
 
-//#define MAP_FILE_UNDECORATE_STRING_LITERALS (1)
+#define MAP_FILE_UNDECORATE_STRING_LITERALS (1)
 
 DWORD WINAPI Emulate_UnDecorateSymbolName(
 	const TCHAR* DecoratedName,
@@ -145,7 +145,7 @@ DWORD WINAPI Probe_UnDecorateSymbolName(
 					int newChar = 0;
 					newChar = (inputChar[2] - 'A');
 					newChar <<= 4;
-					newChar = (inputChar[3] - 'A');
+					newChar += (inputChar[3] - 'A');
 
 					*outputChar = static_cast<char>(newChar);
 					inputChar += 4;
@@ -188,28 +188,46 @@ DWORD WINAPI Probe_UnDecorateSymbolName(
 					inputChar++;
 					outputChar++;
 				}
+
+				char escapedChars[11] = { '\n', '\t', '\v', '\b', '\r', '\f', '\a', '\\', '\?', '\'', '\"' };
+				char escapeChars[11] =  { 'n',  't',  'v',  'b',  'r',  'f',  '\a', '\\', '?',  '\'', '\"'  };
+				for (int e = 0; e < 11; e++)
+				{
+					if (*(outputChar - 1) == escapedChars[e])
+					{
+						*(outputChar - 1) = '\\';
+						*outputChar = escapeChars[e];
+						outputChar++;
+						break;
+					}
+				}
+
+				if (!isgraph(*(outputChar - 1)))
+				{
+					*(outputChar - 1) = '_';
+				}
 			}
 
 			*outputChar = '\0';
 
-			outputChar = &UnDecoratedName[0];
-			bool allWhiteSpaces = true;
-			while (*outputChar != '\0')
-			{
-				// try isgraph
-				if (!isspace(*outputChar))
-				{
-					allWhiteSpaces = false;
-					break;
-				}
-				outputChar++;
-			}
+			//outputChar = &UnDecoratedName[0];
+			//bool allWhiteSpaces = true;
+			//while (*outputChar != '\0')
+			//{
+			//	// try isgraph
+			//	if (!isspace(*outputChar))
+			//	{
+			//		allWhiteSpaces = false;
+			//		break;
+			//	}
+			//	outputChar++;
+			//}
 
-			if (allWhiteSpaces)
-			{
-				_tcscpy(UnDecoratedName, "`string'");
-				return _tcslen(UnDecoratedName);
-			}
+			//if (allWhiteSpaces)
+			//{
+			//	_tcscpy(UnDecoratedName, "`string'");
+			//	return _tcslen(UnDecoratedName);
+			//}
 
 			return _tcslen(UnDecoratedName);
 		}
